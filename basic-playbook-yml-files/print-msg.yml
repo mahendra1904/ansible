@@ -1,0 +1,76 @@
+---
+ - hosts: localhost
+   tasks:
+    
+   - debug: msg="welcome to ansible playbooks"
+
+#......................................
+# we can also right
+---
+ - hosts: localhost
+   tasks:
+   - debug:
+       msg: "welcome to ansible playbooks"
+#.............................
+---
+- name: this is debug module
+  hosts: localhost
+  tasks:
+  - name: this is msg with msg parameter in debug module 
+    debug: msg="welcome to ansible playbooks"
+
+#......................................
+# we can also right
+---
+ - name: debug module
+   hosts: localhost
+   tasks:
+   - name: this is deno
+     debug:
+       msg: "welcome to ansible playbooks"
+#.............................
+# multiple message
+---
+ - name: debug module
+   hosts: localhost
+   tasks:
+   - name: this is deno
+     debug:
+       msg: 
+        -   "welcome to ansible playbooks"
+        -   " 2nd message"
+        -   "3rd message"
+        -   "4th message"
+#---------------------------------------
+# print variable name
+#!/usr/bin/ansible-playbook
+ - name: debug module
+   hosts: localhost
+   tasks:
+   - name: this is deno
+     debug:
+       msg: 
+        -   "the host name is: {{inventory_hostname}}"
+#........................................         
+
+---
+ - name: debug module
+   hosts: localhost
+   tasks:
+   - name: this is deno
+     debug:
+       var: inventory_hostname 
+#.....................................
+---
+ - name: debug module
+   hosts: localhost
+   tasks:
+   - name: default verbosity
+     debug:
+        msg: "this is default verbosity and it is 0 at by  default"
+#       verbosity: 0
+   - name: verbosity is 2
+     debug:
+        msg: "verbosity is 2"
+        verbosity: 2
+  

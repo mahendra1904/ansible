@@ -1,0 +1,57 @@
+# command line arguments
+---
+ - hosts: localhost
+   gather_facts: false
+   tasks:
+   - debug: var=x
+# give the value of x at run time
+# ansible-playbook cli-argument.yml -e "x=100"
+#............................
+---
+ - hosts: localhost
+   gather_facts: false
+   tasks:
+   - debug: 
+      -msg: 
+        - "the value of x: {{x}}"
+        - "the value of x: {{y}}"
+
+
+# ansible-playbook cli-argument.yml -e "x=100 y=200"
+# ansible-playbook cli-argument.yml -e "{'x': 100,'y':200}"
+# ansible-playbook cli-argument.yml -e "{'x': 100,'y':"this is cli args"}"
+# ansible-playbook cli-argument.yml -e "{'x': [1,2,3,4,5],'y':"this is cli args"}"
+# ansible-playbook cli-argument.yml -e "{'x': {'one': 1,'two': 2},'y':"this is cli args"}"
+# ansible-playbook cli-argument.yml -e "{'x': [1,2,3,4,5],'y':"this is cli args"}"
+#ansible-playbook cli-argument.yml -e "{'x': {'one': 1,'two': 2},'y':"this is cli args"}"
+#ansible-playbook cli-argument.yml -e “@variables.yml”
+#ansible-playbook cli-argument.yml -e “@variables.json”
+#............................................................
+---
+ - name: this is simple playbook 
+   hosts: localhost
+   gather_facts: false
+   become: yes
+   tasks:
+   - name: install nginx
+     yum:
+      name: nginx
+      state: present
+
+# this is common playbook
+#..............................
+# cli.yml
+---
+ - name: this is simple playbook 
+   hosts: localhost
+   gather_facts: false
+   become: yes
+   tasks:
+   - name: working with {{pks}}
+     yum:
+      name: "{{pkg}}"
+      state: "{{req_state}}"
+
+# ansible-playbook cli.yml -e "pkg=nginx req_state=present" 
+# ansible-playbook cli.yml -e "pkg=nginx req_state=absent"
+ 

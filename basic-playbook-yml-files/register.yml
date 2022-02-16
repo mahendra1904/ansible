@@ -1,0 +1,70 @@
+---
+ - hosts: localhost
+   gather_facts: false
+   tasks:
+   - shell: "bash --version"
+     register: bash_ver
+   - debug: var=bash_ver
+#...............................
+
+---
+ - hosts: localhost
+   gather_facts: false
+   tasks:
+   - shell: "bash --version"
+     register: bash_ver
+   - debug: var=bash_ver.stdout
+            #var=bash_ver.get('stdout')
+            #var=bash_ver['stdout']
+          
+#...............................
+
+---
+ - hosts: localhost
+   gather_facts: false
+   tasks:
+   - shell: "bash --version"
+     register: bash_ver
+   - debug: var=bash_ver.stdout.split("\n")
+            #var=bash_ver.get('stdout')
+            #var=bash_ver['stdout']
+          
+#...............................
+
+
+---
+ - hosts: localhost
+   gather_facts: false
+   tasks:
+   - shell: "bash --version"
+     register: bash_ver
+   - debug: var=bash_ver.stdout.split("\n")[0]
+            #var=bash_ver.get('stdout')
+            #var=bash_ver['stdout']
+          
+#...............................
+
+---
+ - hosts: localhost
+   gather_facts: false
+   tasks:
+   - shell: "bash --version"
+     register: bash_ver
+   - debug: var=bash_ver.stdout.split("\n")[0].split()[3]
+            #var=bash_ver.get('stdout')
+            #var=bash_ver['stdout']
+          
+#...............................
+
+
+#...........................................
+---
+ - hosts: localhost
+   gather_facts: false
+   tasks:
+   - shell: "bash --version"
+     register: bash_ver
+   - set_fact:
+      bash_version: "{{bash_ver.stdout.split('\n')[0].split()[3]}}"
+      my_value: "bash version"
+   - debug: var=bash_version

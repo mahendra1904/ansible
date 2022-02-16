@@ -1,0 +1,147 @@
+---
+ - hosts: localhost
+   vars:
+    x: 34
+    pakgs: ['vim','nano','httpd','nginx']
+   gather_facts: false
+   tasks:
+   - debug: var=pakgs
+  #........................................
+#  or we can right in this way
+---
+ - hosts: localhost
+   vars:
+   x: 34
+ #   pakgs: ['vim','nano','httpd','nginx']
+   pakgs:
+    - 'vim'
+    - 'nano'
+    - 'httpd'
+    - 'nginx'
+   gather_facts: false
+   tasks:
+   - debug: var=pakgs
+  #........................................
+---
+ - hosts: localhost
+   vars:
+   x: 34
+ #   pakgs: ['vim','nano','httpd','nginx']
+   pakgs:
+    - 'vim'
+    - 'nano'
+    - 'httpd'
+    - 'nginx'
+   web_servers: {'Linux': 'httpd','ubuntu': 'apache2'}
+   gather_facts: false
+   tasks:
+   - debug: var=web_servers
+#..........................................
+---
+ - hosts: localhost
+   vars:
+   x: 34
+ #   pakgs: ['vim','nano','httpd','nginx']
+   pakgs:
+    - 'vim'
+    - 'nano'
+    - 'httpd'
+    - 'nginx'
+#   web_servers: {'Linux': 'httpd','ubuntu': 'apache2'}
+   web_servers:
+    'Linux': 'httpd'
+    'ubuntu': 'apache2'
+   gather_facts: false
+   tasks:
+   - debug: var=web_servers
+
+#.......................................
+---
+ - hosts: localhost
+   vars:
+   x: 34
+ #   pakgs: ['vim','nano','httpd','nginx']
+   pakgs:
+    - 'vim'
+    - 'nano'
+    - 'httpd'
+    - 'nginx'
+#   web_servers: {'Linux': 'httpd','ubuntu': 'apache2'}
+   web_servers:
+    'Linux': 'httpd'
+    'ubuntu': 'apache2'
+   gather_facts: false
+   tasks:
+   - debug: var=pakgs[0]
+#........................................................
+---
+ - hosts: localhost
+   vars:
+   x: 34
+ #   pakgs: ['vim','nano','httpd','nginx']
+   pakgs:
+    - 'vim'
+    - 'nano'
+    - 'httpd'
+    - 'nginx'
+#   web_servers: {'Linux': 'httpd','ubuntu': 'apache2'}
+   web_servers:
+    'Linux': 'httpd'
+    'ubuntu': 'apache2'
+   gather_facts: false
+   tasks:
+   - debug: var=web_servers.keys()
+#....................................
+---
+ - hosts: localhost
+   vars:
+   x: 34
+ #   pakgs: ['vim','nano','httpd','nginx']
+   pakgs:
+    - 'vim'
+    - 'nano'
+    - 'httpd'
+    - 'nginx'
+#   web_servers: {'Linux': 'httpd','ubuntu': 'apache2'}
+   web_servers:
+    'Linux': 'httpd'
+    'ubuntu': 'apache2'
+   gather_facts: false
+   tasks:
+   - debug: var=web_servers.['Linux']
+#................................
+---
+ - hosts: localhost
+   vars:
+   x: 34
+ #   pakgs: ['vim','nano','httpd','nginx']
+   pakgs:
+    - 'vim'
+    - 'nano'
+    - 'httpd'
+    - 'nginx'
+#   web_servers: {'Linux': 'httpd','ubuntu': 'apache2'}
+   web_servers:
+    'Linux': 'httpd'
+    'ubuntu': 'apache2'
+   gather_facts: false
+   tasks:
+   - debug: var=web_servers.get('Linux')
+#................................
+---
+ - hosts: localhost
+   vars:
+    x: 34
+    #pakgs: ['vim','nano','httpd','nginx']
+    pakgs:
+    - 'vim'
+    - 'nano'
+    - 'httpd'
+    - 'nginx'
+    #web_servers: {'Linux': 'httpd', 'ubuntu': 'apache2'}
+    web_servers:
+     'Linux': 'httpd'
+     'ubuntu': 'apache2'
+   gather_facts: false
+   tasks:
+   - debug: var=web_servers.get('Linux')

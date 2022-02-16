@@ -1,0 +1,14 @@
+# ansible web -m yum -a "name=httpd state=present" -b
+# ansible web -m yum -a "name=wget state=present -b"
+---
+ - name: this is to install on web
+   hosts: web
+   gather_facts: no
+   become: yes
+   tasks: 
+   - name: uninstall httpd
+     yum: name=httpd state=absent
+     #become: yes
+   - name: uninstall wget
+     yum: name=wgt state=absent
+     #become: yes

@@ -1,0 +1,38 @@
+
+#-----------------------------
+ - hosts: localhost
+   vars:
+    x: 45
+    my_name: "Marendra"
+   vars_prompt:
+    - name: y
+      prompt: enter the value of y 
+   gather_facts: false
+   tasks:
+   - debug:
+      msg:
+        - "The x value is: {{x}} " 
+        - " the value of y is {{my_name}}"
+        - " the value of y is {{y}}"
+
+#...................................
+
+
+#-----------------------------
+ - hosts: localhost
+   vars:
+    x: 45
+    my_name: "Marendra"
+   vars_prompt:
+    - name: user_name
+      prompt: Enter your user name 
+      private: no
+    - name: password
+      prompt: Enter your password 
+      private: yes
+   gather_facts: false
+   tasks:
+   - debug:
+      msg: "The username is: {{user_name}} and password is: {{password}}" 
+
+# by default private is yes

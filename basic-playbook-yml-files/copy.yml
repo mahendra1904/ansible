@@ -1,0 +1,6 @@
+
+# ansible web -m copy -a "sec=web.xml dest=web.xml"
+---
+ - hosts: web
+   tasks:
+   - copy: src=web.xml dest=web.xml

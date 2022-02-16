@@ -1,0 +1,46 @@
+---
+ - hosts: web
+   vars: 
+    x: 23
+   gather_facts: no
+   tasks:
+   - debug: var=x
+#....................................
+---
+ - hosts: web
+   vars: 
+    x: 23
+   gather_facts: no
+   tasks:
+   - debug:
+      var: x
+#................................
+---
+ - hosts: web
+   vars: 
+    x: 23
+    my_name: "mahendra"
+    y: 23.5
+    my_b: false
+   gather_facts: no
+   tasks:
+   - debug:
+      msg:
+       - "the valve of x is : {{x}}"
+       - "the valve of my_name is : {{my_name}}"
+       - "the valve of y is : {{y}}"
+#.........................................................
+---
+ - hosts: web
+   vars: 
+    x: 23
+    my_name: "mahendra"
+    y: 23.5
+    my_b: false
+   gather_facts: no
+   tasks:
+   - debug:
+      msg:
+       - "the valve of x is : {{x}} and type {{x| type_debug}}"
+       - "the valve of my_name is : {{my_name and type {{my_name| type_debug}}}}"
+       - "the valve of y is : {{y and type {{y| type_debug}}}}"

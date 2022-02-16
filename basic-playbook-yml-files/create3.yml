@@ -1,0 +1,13 @@
+
+# ansible web -m copy -a "src=web.xml dest=web.xml"
+# ansible web -m file -a "path=demonew.txt state=touch"
+---
+ - name: this is task of web server
+ - hosts: web
+   gather_facts: false
+   tasks:
+   - name: this is a task to copy a file
+     copy: src=web.xml dest=web.xml
+   - name: this is task to create a file
+     file: path=demonew.txt state=touch
+

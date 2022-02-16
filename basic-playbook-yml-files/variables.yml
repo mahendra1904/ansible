@@ -1,0 +1,20 @@
+# this is a variable yml file (variavle-store.yml)
+---
+ x: 23
+ y: 
+ - 4
+ - 44.4
+ - 900
+ packs:
+  "Linux": "httpd"
+  "ubuntu": "apache2"
+#......................................   
+
+# read-variable.yml
+
+---
+- hosts: localhost
+  vars_file: variavle-store.yml
+  tasks:
+  - debug: var=packs
+#...................................................

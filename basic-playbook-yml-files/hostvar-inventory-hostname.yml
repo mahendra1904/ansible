@@ -1,0 +1,29 @@
+#.............
+
+---
+ - hosts: localhost
+   gather_facts: false
+   tasks:
+   - debug: var=inventory_hostname
+#.................................................
+---
+ - hosts: localhost
+   gather_facts: false
+   tasks:
+   - debug: var=inventory_hostname
+   - debug: var=hostvars
+#...................................
+---
+ - hosts: localhost
+   gather_facts: false
+   tasks:
+   - debug: var=inventory_hostname
+   - debug: var=hostvars[inventory_hostname]
+#...............................
+---
+ - hosts: localhost
+   gather_facts: false
+   tasks:
+   - debug: var=inventory_hostname
+  # - debug: var=hostvars[inventory_hostname]
+   - debug: var=ansible_facts 

@@ -1,0 +1,14 @@
+# sudo yum install nano
+# location of ansible playbook commands
+# give this file to +x permmision
+#!/usr/bin/ansible-playbook
+ - name: this is to install on web
+   hosts: localhost
+   gather_facts: no    #default task
+   tasks: 
+   - name: install httpd
+     yum: name=httpd state=present
+     become: yes
+   - name: install wget
+     yum: name=wgt state=present
+     become: yes

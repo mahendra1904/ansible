@@ -1,0 +1,13 @@
+---
+  - hosts: all
+    become: yes
+    tasks: 
+    - yum: name=wget state=present
+    - yum: name=vim state=latest
+  
+  - hosts: web
+    become: yes
+    tasks: 
+    - yum: name=httpd state=present
+    
+    

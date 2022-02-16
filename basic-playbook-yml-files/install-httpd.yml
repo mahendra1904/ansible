@@ -1,0 +1,13 @@
+# ansible web -m yum -a "name=httpd state=present" -b
+# ansible web -m yum -a "name=wget state=present -b"
+---
+ - name: this is to install on web
+   hosts: web
+   gather_facts: no
+   tasks: 
+   - name: install httpd
+     yum: name=httpd state=present
+     become: yes
+   - name: install wget
+     yum: name=wgt state=present
+     become: yes
