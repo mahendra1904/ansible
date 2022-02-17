@@ -1,0 +1,33 @@
+---
+  - hosts: localhost
+    gather_facts: false
+    tasks:
+      - block:
+        - name: Finding files in /home/ansadmin/tomcat8
+          command: "ls /home/ansadmin/tomcat8"
+          register: tomcat8_out
+        rescue:
+          - debug:
+             msg: "The given path: /home/ansadmin/tomcat8 is not a validpath"
+        always:
+          - debug:
+             msg: "THis will always executes"
+#..........................................................
+---
+  - hosts: localhost
+    gather_facts: fasle
+    become: yes
+    tasks:
+      - block:
+        - name: starting nginx
+          service:
+            name: nginx
+            state: started
+          ignore_errors: yes
+        - name: starting httpd
+          service:
+            name: httpd
+            state: started
+        ignore_errors: yes
+
+#...............................................

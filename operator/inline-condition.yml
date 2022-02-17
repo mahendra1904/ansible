@@ -1,0 +1,80 @@
+---
+  - name: simple usage of inline conditional statement ( if else)
+    hosts: localhost
+    gather_facts: false
+    vars:
+      x: 155
+      y: 19
+      larger: "{{ x if ( x > y) else (y)}}"
+    tasks:
+      - debug:
+          msg: "The larger number of {{x}} and {{y}} is: {{larger}}"
+#............................................
+---
+  - name: simple usage of inline conditional statement ( if else)
+    hosts: localhost
+    gather_facts: false
+    vars:
+      x: 15
+      y: 9
+    tasks:
+      - debug:
+          msg: "The larger number of {{x}} and {{y}} is: {{x}}"
+        when: x > y
+      - debug:
+          msg: "The large number of {{x}} and {{y}} is: {{y}}"
+        when: y > x
+#..................................................
+
+---
+  - name: WOrking with inline conditional statement
+    hosts: localhost
+    gather_facts: true
+    #become: yes
+    vars:
+     x: 5
+     y: 7
+     my_list: [1,2,3,5]
+    tasks:
+      - name: when operator
+        debug: 
+          msg: "{{x}} and {{y}}"
+        when: x==y
+      - name: when operator
+        debug: 
+          msg: "{{x}} and {{y}}"
+        when: x in my_list
+#................................................
+
+
+---
+  - name: WOrking with inline conditional statement
+    hosts: localhost
+    gather_facts: true
+    #become: yes
+    vars:
+     x: 5
+     y: 7
+     my_list: [1,2,3,5]
+    tasks:
+      - name: when operator
+        debug: 
+          msg: "the larger of {{x}} and {{y}} is {{x if (x>y) else y}}"
+#..............................................................
+
+---
+  - name: WOrking with inline conditional statement
+    hosts: localhost
+    gather_facts: true
+    #become: yes
+    vars:
+     x: 5
+     y: 7
+     larger: {{x if (x>y) else y}}
+     my_list: [1,2,3,5]
+    tasks:
+      - name: when operator
+        debug: 
+          msg: "the larger of {{x}} and {{y}} is {{larger}} "
+
+

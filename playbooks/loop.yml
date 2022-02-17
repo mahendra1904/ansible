@@ -1,0 +1,92 @@
+
+# without loop
+---
+  - hosts: localhost
+    gather_facts: false
+    become: yes
+    tasks:
+      - yum:
+         name: gettext-devel
+         state: present
+      - yum:
+         name: openssl-devel
+         state: present
+      - yum:
+         name: perl-CPAN
+         state: present
+      - yum:
+         name: perl-devel
+         state: present
+      - yum:
+         name: zlib-devel
+         state: present
+
+#...............................
+
+# with loop
+---
+  - hosts: localhost
+    gather_facts: false
+    become: yes
+    tasks:
+      - yum:
+         name: "{{item}}"
+         state: present
+        loop:
+          - gettext-devel
+          - openssl-devel
+          - perl-CPAN
+          - perl-devel
+          - zlib-devel
+#......................................
+
+# with loop
+---
+  - hosts: localhost
+    gather_facts: false
+    become: yes
+    tasks:
+      - yum:
+         name: "{{item}}"
+         state: present
+        loop:
+          - git
+          - tomcat
+          - httpd
+          - nginx
+          
+
+# with loop
+---
+  - hosts: localhost
+    gather_facts: false
+    become: yes
+    tasks:
+      - yum:
+         name: "{{item}}"
+         state: absent
+        loop:
+          - gettext-devel
+          - openssl-devel
+          - perl-CPAN
+          - perl-devel
+          - zlib-devel
+
+         
+#.............................
+# with loop
+---
+  - hosts: localhost
+    gather_facts: false
+    become: yes
+    tasks:
+      - debug:
+         msg: "the current pckage item {{item}}"
+        loop:
+          - gettext-devel
+          - openssl-devel
+          - perl-CPAN
+          - perl-devel
+          - zlib-devel
+
+         

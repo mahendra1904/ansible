@@ -1,0 +1,60 @@
+
+---
+  - name: SImple play to install httpd
+    hosts: web_servers
+    gather_facts: true
+    #become: yes
+    tasks:
+      - name: Installing httpd using yum
+        yum:
+          name: httpd
+          state: present
+        when: ansible_distribution != "Ubuntu"
+      - name: Istalling apache2 using apt
+        apt:
+          name: apache2
+          state: present
+        when: ansible_distribution == "Ubuntu"
+#.................................................
+
+
+---
+  - name: SImple play to install httpd
+    hosts: web_servers
+    gather_facts: true
+    #become: yes
+    tasks:
+      - name: Installing httpd using yum
+        yum:
+          name: httpd
+          state: absent
+        when: ansible_distribution != "Ubuntu"
+      - name: Istalling apache2 using apt
+        apt:
+          name: apache2
+          state: absent
+        when: ansible_distribution == "Ubuntu"
+#.............................
+---
+  - name: WOrking with conditional statement
+    hosts: localhost
+    gather_facts: true
+    #become: yes
+    vars:
+     x: 5
+     y: 7
+     my_list: [1,2,3,5]
+    tasks:
+      - name: when operator
+        debug: 
+          msg: "{{x}} and {{y}}"
+        when: x==y
+      - name: when operator
+        debug: 
+          msg: "{{x}} and {{y}}"
+        when: x in my_list
+
+#................
+
+#......................................
+

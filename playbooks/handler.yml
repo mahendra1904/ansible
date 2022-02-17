@@ -1,0 +1,59 @@
+# systemctl status httpd
+# ---- no dependency on these two tasks.......
+
+---
+  - hosts: localhost
+    gather_facts: false
+    become: yes
+    tasks:
+      - name: Install httpd
+        yum:
+          name: httpd
+          state: present
+      - name: start httpd
+        service:
+          name: httpd
+          state: started
+#......................................................
+
+---
+  - hosts: localhost
+    gather_facts: false
+    become: yes
+    tasks:
+      - name: Install httpd
+        yum:
+          name: httpd
+          state: present
+        register: out     # status of this task will store in this variable
+      #- debug: var=out.changed
+      - name: start httpd
+        service:
+          name: httpd
+          state: started
+        when: out.changed == True
+
+#......................................................
+
+# now these two task are dependent
+
+# ------ handler concept
+
+---
+  - hosts: localhost
+    gather_facts: false
+    become: yes
+    tasks:
+      - name: Install httpd
+        yum:
+          name: httpd
+          state: present
+        notify:            # pull syntax
+          - start httpd
+    handlers:               # in handler section , task will not run automaticaly , we need to call then
+      - name: start httpd
+        service:
+          name: httpd
+          state: started
+#......................................................
+
