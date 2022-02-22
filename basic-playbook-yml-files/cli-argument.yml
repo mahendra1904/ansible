@@ -19,7 +19,7 @@
 
 # ansible-playbook cli-argument.yml -e "x=100 y=200"
 # ansible-playbook cli-argument.yml -e "{'x': 100,'y':200}"
-# ansible-playbook cli-argument.yml -e "{'x': 100,'y':"this is cli args"}"
+# ansible-playbook cli-argument.yml -e "{'x': 100,'y':'this is cli args'}"
 # ansible-playbook cli-argument.yml -e "{'x': [1,2,3,4,5],'y':"this is cli args"}"
 # ansible-playbook cli-argument.yml -e "{'x': {'one': 1,'two': 2},'y':"this is cli args"}"
 # ansible-playbook cli-argument.yml -e "{'x': [1,2,3,4,5],'y':"this is cli args"}"

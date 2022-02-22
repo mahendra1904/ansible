@@ -11,14 +11,14 @@
    gather_facts: false
    tasks:
    - debug: var=inventory_hostname
-   - debug: var=hostvars
+   - debug: var=hostvars              # give all the information about all hosts
 #...................................
 ---
  - hosts: localhost
    gather_facts: false
    tasks:
    - debug: var=inventory_hostname
-   - debug: var=hostvars[inventory_hostname]
+   - debug: var=hostvars[inventory_hostname] # give only host server details
 #...............................
 ---
  - hosts: localhost

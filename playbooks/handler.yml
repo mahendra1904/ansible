@@ -2,7 +2,7 @@
 # ---- no dependency on these two tasks.......
 
 ---
-  - hosts: localhost
+ - hosts: localhost
     gather_facts: false
     become: yes
     tasks:

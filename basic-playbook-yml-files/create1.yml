@@ -4,7 +4,7 @@
 ---
  - name: this is task of web server
  - hosts: web
-   gather_facts: false
+   gather_facts: false 
    tasks:
    - copy: src=web.xml dest=web.xml
    - file: path=demonew.txt state=touch

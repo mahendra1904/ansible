@@ -28,7 +28,7 @@
         yum:
           name: httpd
           state: absent
-        when: ansible_distribution != "Ubuntu"
+        when: ansible_distribution != "Ubuntn"
       - name: Istalling apache2 using apt
         apt:
           name: apache2
@@ -48,7 +48,7 @@
       - name: when operator
         debug: 
           msg: "{{x}} and {{y}}"
-        when: x==y
+        when: x<y
       - name: when operator
         debug: 
           msg: "{{x}} and {{y}}"

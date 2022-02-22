@@ -1,8 +1,8 @@
 
 ---
-- hosts: localhost
-  vars_file: 
-   - variable-store.yml
-   - variable.json
-  tasks:
-  - debug: var=r
+ - hosts: localhost
+   vars_files: 
+    - variable-store.yml
+    - variable.json
+   tasks:
+   - debug: var=r

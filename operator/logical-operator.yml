@@ -1,0 +1,13 @@
+---
+ - name: this is demo of logical operator
+   hosts: localhost
+   gather_facts: false
+   vars: 
+    x: 5
+    y: 10
+    z: 15
+   tasks:
+   - debug:
+       msg:
+        - "the valve of x and y is {{x}} and {{y}}"
+        - "{{x}}>{{y}}            false"

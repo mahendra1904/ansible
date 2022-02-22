@@ -1,0 +1,53 @@
+---
+ - name: terminate ec2 
+   hosts: localhost
+   connection: local
+   gather_facts: no
+   tasks:
+   - name: terninate ec2 without tags
+     ec2_instance_facts:
+      region: us-east-1
+      register: ec2_info
+   - name: disp lay 
+     debug: var=item.tags
+     with_items: "{{ec2_info.instances}}"
+#..................................
+---
+ - name: terminate ec2 
+   hosts: localhost
+   connection: local
+   gather_facts: no
+   tasks:
+   - name: terninate ec2 without tags
+     ec2_instance_facts:
+      region: us-east-1
+      register: ec2_info
+   - name: display facts 
+     debug: var=item.tags
+     with_items: "{{ec2_info.instances}}"
+     when: item.tags.keys() | length ==0
+#.........................................
+---
+ - name: terminate ec2 
+   hosts: localhost
+   connection: local
+   gather_facts: no
+   tasks:
+   - name: terninate ec2 without tags
+     ec2_instance_info:
+      region: us-east-1
+      register: ec2_info
+   - name: terminate ec2 without tags 
+     ec2: 
+      region: us-west-2
+      instance_ids: "{{item.instance_id}}"
+      state: absent
+    
+     with_items: "{{ec2_info.instances}}"
+     when: item.tags.keys() | length ==0
+
+
+
+
+
+
