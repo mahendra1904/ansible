@@ -1,0 +1,15 @@
+---
+ - name: launch ec2
+   hosts: localhost
+   gather_facts: no
+   tasks:
+   - name: launch ec2
+     ec2:
+      aws_access_key: {{aws_access_key}}
+      aws_secret_key: {{aws_secret_key}}
+      instance_type: t2.micro
+      image: ami-908098898
+      region: us-west-2
+
+#ansible-playbook ec2-var-vault.yml --ask-vault-pass
+#then give password

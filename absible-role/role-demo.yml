@@ -1,0 +1,14 @@
+#ansible-galaxy init update_repos --offline
+# tree update_repos
+#.......................
+---
+ - name: install tomcat via roles
+   hosts: localhost 
+   gather_facts: no
+   become: yes
+   roles:
+     - update_repos
+     - xyz_java
+     - xyz_tomcat
+      
+      

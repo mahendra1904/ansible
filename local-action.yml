@@ -19,7 +19,7 @@
         copy:
           dest: ./Discovery.csv
           content: "Server_Name, OS Family, OS Name, OS Distribution, uptime\n"   # means heading
-        delegate_to: localhost
+        delegate_to: 52.25.194.144
         run_once: true
       - name: UPdating info of each server in csv file
         lineinfile:

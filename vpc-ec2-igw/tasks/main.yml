@@ -1,0 +1,98 @@
+
+---
+ - name: create vpc
+   ec2_vpc_net:
+    name: "{{vpc_name}}"
+    cidr_block: "{{vpc_cidr}}"
+    region: "{{region}}"
+    state: present
+  #  aws_access_key: ""
+ #   aws_secret_key: ""  
+   register: vpc 
+
+ - name: set vpc id in variable
+   set_facts:
+    vpc_id: "{{vpc.vpc.id}}" 
+
+ - name: associate subnet to vpc 
+   ec2_vpc_subnet:
+    state: present 
+    vpc_id: "{{vpc_id}}"
+    region: "{{region}}"
+    cidr: "{{subnet_cidr}}"
+      #  aws_access_key: ""
+  #   aws_secret_key: ""  
+    map_public: yes
+    resource_tags:
+     Name: "{{subnet_name}}"
+     ENV: Prod
+   register: subnet 
+
+ - name: create igw 
+   ec2_vpc_igw:
+    vpc_id: "{{vpc_id}}"
+    region: "{{region}}"
+    state: present 
+    tags: 
+     Name: "{{igw_name}}"
+   register: igw
+
+ - name: route igw table 
+   ec2_vpc_route_table:
+    vpc_id: "{{vpc_id}}"
+    subnets: 
+        - "{{subnet.subnet.id}}"
+    routes:
+        - dest: 0.0.0.0/0
+          gateway_id: "{{igw.gateway.id}}"
+          tags: 
+            Name: "{{route_name}}"
+
+ - name: create security group
+   ec2_group:
+    name: web sg 
+    description: this is sg for web server 
+    vpc_id: "{{vpc_id}}"
+    region: "{{region}}"
+    rules:
+      - proto: tcp
+        ports:
+         - 80
+        cidr_ip: 0.0.0.0/0
+      - proto: ssh
+        ports:
+          - 22
+        cidr_ip: 0.0.0.0/0
+    register: security_group 
+
+ - name: create a ec2 key pair
+   ec2_key: 
+    name: "{{keypair_name}}"
+    resion: "{{region}}"
+   register: keypair 
+   tags: 
+    - production-key 
+
+
+ - name: copy ec2 key pair private key locally
+   copy: content "{{keypair.key.private_key}}"
+   dest: "{{ec2_key_directory}}production.pem"
+   when: keypair.chnaged==true
+   tags:
+    - production-key 
+
+ - name: create a ec2 server
+   ec2: 
+    image: ami-033b95fb8079dc481 
+    wait: yes
+    instance_type: t2.micro
+    region: "{{region}}"
+    group_id: "{{security_group.group.id}}"
+    vpc_subnet_id: "{{subnet.subnet.id}}"
+    key_name: "{{keypair.key.name}}"
+    instance_tags:
+      Name: production/giit 
+
+      
+      
+     

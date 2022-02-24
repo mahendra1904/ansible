@@ -1,0 +1,33 @@
+---
+#aws_secret_key: ""
+#aws_access_key: ""
+region: "us-east-1"
+
+#VPC
+vpc_cidr: 10.0.0.0/24
+vpc_name: "production/giit"
+
+#SUBNET
+subnet_name: "production/subnet/01"
+subnet_cidr: 10.0.0.0/28 
+
+#igw
+igw_name: "prod/giit/igw1"
+
+
+#route-table
+route_name: giit/route-table
+
+#security group
+securitygroup_name: prod-sg
+
+ec2_tag: "prod-server"
+
+#key_storage_location
+
+ec2_key_directory: "/home/ec2-user/"
+keypair_name: "prod-giit-key"
+
+
+
+

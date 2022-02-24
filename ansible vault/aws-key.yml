@@ -1,0 +1,6 @@
+---
+aws_access_key: "jhhhhhhhhhhhhhhhhh"
+aws_secret_key: "hggggggggb"
+
+#nsible-vault encrypt aws-key.yml
+#the give password

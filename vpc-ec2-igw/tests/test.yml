@@ -1,0 +1,8 @@
+---
+ - name: create a vpc, subnet,igw,route_table, security_group, ec2
+   remote_user: root 
+   roles:
+    - vpc_ec2-igw
+
+
+#ansible-playbook test.yml

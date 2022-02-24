@@ -1,0 +1,10 @@
+# ansible-playbook roles-playnook.yml
+
+--- 
+ - name: working with roles 
+   hosts: db
+   gather_facts: false
+   become: yes
+   roles:
+    - update_repos
+    - java

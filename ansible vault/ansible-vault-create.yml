@@ -1,0 +1,7 @@
+---
+ x: 20
+ y: 90
+ 
+#ansible-vault create demo.yml // then this will create encrypted password
+#ansible-vault view demo.yml // to view this file
+#ansible-vault edit demo.yml

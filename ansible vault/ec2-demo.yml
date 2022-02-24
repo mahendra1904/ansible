@@ -1,0 +1,32 @@
+---
+ - name: launch ec2
+   hosts: localhost
+   gather_facts: no
+   tasks:
+   - name: launch ec2
+     ec2:
+      aws_access_key: "jhhhhhhhhhhhhhhhhh"
+      aws_secret_key: "hggggggggb"
+      instance_type: t2.micro
+      image: ami-908098898
+      region: us-west-2
+
+# ansible-vault encrypt ec2-demo.yml // then it will ask for password 
+#then run 
+# ansible-playbook ec2-demo.yml --ask-vault-pass 
+#then give password
+#ansible-playbook decrypt ec2-demo.yml
+#then password that u hv given at the time of encrypt
+#................................
+#ansible-vault rekey demo.yml // to change the vault password
+# if password store in any file like my-pass then
+#ansible-playbook demo.yml --vault-password-file my-pass
+#or
+#ansible-playbook demo.yml --vault-id my-pass
+
+
+# best practice is to encrypt the file which contain the sesitive data
+# do not encrypt whole file
+
+
+
