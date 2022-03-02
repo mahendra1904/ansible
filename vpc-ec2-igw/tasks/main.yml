@@ -11,7 +11,7 @@
    register: vpc 
 
  - name: set vpc id in variable
-   set_facts:
+   set_fact:
     vpc_id: "{{vpc.vpc.id}}" 
 
  - name: associate subnet to vpc 
@@ -37,14 +37,19 @@
      Name: "{{igw_name}}"
    register: igw
 
+ - name: set igw id in variable
+   set_fact:
+    gateway_id: "{{igw.gateway_id}}" 
+
  - name: route igw table 
    ec2_vpc_route_table:
     vpc_id: "{{vpc_id}}"
+    region: "{{region}}"
     subnets: 
         - "{{subnet.subnet.id}}"
     routes:
         - dest: 0.0.0.0/0
-          gateway_id: "{{igw.gateway.id}}"
+          gateway_id: "{{gateway_id}}"
           tags: 
             Name: "{{route_name}}"
 
@@ -54,6 +59,8 @@
     description: this is sg for web server 
     vpc_id: "{{vpc_id}}"
     region: "{{region}}"
+    aws_access_key: "{{aws_access_key}}"
+    aws_secret_key: "{{aws_secret_key}}"
     rules:
       - proto: tcp
         ports:
@@ -75,8 +82,7 @@
 
 
  - name: copy ec2 key pair private key locally
-   copy: content "{{keypair.key.private_key}}"
-   dest: "{{ec2_key_directory}}production.pem"
+   copy: content "{{keypair.key.private_key}}" dest= {{ec2_key_directory}}production.pem
    when: keypair.chnaged==true
    tags:
     - production-key 

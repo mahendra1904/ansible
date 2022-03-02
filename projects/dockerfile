@@ -1,0 +1,5 @@
+FROM nginx
+LABEL giit solution
+ENV NGINX_VERSION latest
+EXPOSE 80
+ 

@@ -1,0 +1,70 @@
+---
+ - name: lunch ec2 for jenkins
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   tags: provisioning
+   
+   vars:
+    keypair: jenkins-ansible
+    instance_type: t2.micro
+    image: ami-0e472ba40eb589f49
+    wait: yes
+    group: webserver
+    region: us-east-1
+    security_group: jenking-sg
+    count: 1
+  
+   tasks:
+    - name: create a securit-group for jenkins
+      local_action:
+        module: ec2_group 
+        name: "{{security_group}}"
+        description: sg for jenkins
+        region: "{{region}}"
+        rules:
+         - proto: tcp
+           from_port: 80
+           to_port: 80
+           cidr_ip: 0.0.0.0/0
+         - proto: ssh
+           from_port: 22
+           to_port: 22
+           cidr_ip: 0.0.0.0/0
+         - proto: jenkins
+           from_port: 8080
+           to_port: 8080
+           cidr_ip: 0.0.0.0/0
+        rules_egress:
+         - proto: all
+           cide_ip: 0.0.0.0/0
+      register: sgjenkins         
+    - name: launch ec2 server 
+      local_action: ec2
+                    group= {{security_group}}
+                    instance_type={{instance_type}}
+                    image={{image}}
+                    wait=true
+                    region={{region}}
+                    keypair={{keypair}}
+                    count={{count}}
+      register: ec2
+    - name: add tag 
+      local_action: ec2_tag resource={{item.id}} region={{region}} state=present
+      with_items: "{{ec2.instance}}"
+      args:
+        tags:
+          Name: MyTargetEc2Instance               
+#................................
+---
+ - name: Launching aws ec2 instance
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   tasks:
+   - name: Launching ec2 instance with ec2 module 
+     ec2:
+      instance_type: t2.micro
+      image: ami-011b3ccf1bd6db744
+      key_name: feb
+      region: us-east-1

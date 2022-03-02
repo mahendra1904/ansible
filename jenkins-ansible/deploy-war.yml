@@ -1,0 +1,13 @@
+---
+ - name: deploy a war file to tomcat server via jenkins
+   hosts: localhost
+   gather_facts: false
+   become: yes
+   tasks:
+   - name: copy the artifact and pase in tomcat server
+     copy: 
+      src: /opt/playbook/webapp/target/webapp.war
+      dest: /opt/apache-tomcat-8.5.22/webapp
+
+
+      
